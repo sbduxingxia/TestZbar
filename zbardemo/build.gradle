@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion ANDROID_BUILD_SDK_VERSION as int
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        pickFirst  'lib/armeabi/libiconv.so'
+        pickFirst  'lib/arm64-v8a/libiconv.so'
+        pickFirst  'lib/armeabi-v7a/libiconv.so'
+        pickFirst  'lib/mips/libiconv.so'
+        pickFirst  'lib/mips64/libiconv.so'
+        pickFirst  'lib/x86_64/libiconv.so'
+        pickFirst  'lib/x86/libiconv.so'
+
+        pickFirst  'lib/armeabi/libzbarjni.so'
+        pickFirst  'lib/arm64-v8a/libzbarjni.so'
+        pickFirst  'lib/armeabi-v7a/libzbarjni.so'
+        pickFirst  'lib/mips/libzbarjni.so'
+        pickFirst  'lib/mips64/libzbarjni.so'
+        pickFirst  'lib/x86_64/libzbarjni.so'
+        pickFirst  'lib/x86/libzbarjni.so'
+
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    // -------------------- 以下几个库是为了方便编写演示案例添加进来的，集成到你自己项目时可以不依赖这些库 --------------------
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+//    compile 'pub.devrel:easypermissions:1.0.1'
+//    compile 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+//    compile 'cn.bingoogolapple:bga-baseadapter:1.2.9@aar'
+//    compile 'com.github.bumptech.glide:glide:4.5.0'
+    // -------------------- 以上几个库是为了方便编写演示案例添加进来的，集成到你自己项目时可以不依赖这些库 --------------------
+
+    compile project(':zbar')
+
+    // -------------------- 以下一个库是必须依赖的 ----------------------------
+    compile 'cn.bingoogolapple:bga-qrcode-zbar:1.2.1'
+    // -------------------- 以上一个库是必须依赖的 ----------------------------
+}
